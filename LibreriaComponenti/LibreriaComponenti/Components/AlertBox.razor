@@ -1,0 +1,32 @@
+﻿<div class="@CssClass">
+    <h3>@Log.Level</h3>
+    <p>@Log.Message</p>
+
+
+    @ChildContent
+
+    @ChildContent2
+</div>
+
+@code {
+
+    //[Parameter]
+    //public string Message { get; set; }
+
+    //[Parameter]
+    //public string Severity { get; set; }
+
+    [Parameter]
+    public string CssClass { get; set; } = "alert alert-danger";
+
+    [Parameter]
+    public LogData Log { get; set; } = new LogData();
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent2 { get; set; }
+
+
+}

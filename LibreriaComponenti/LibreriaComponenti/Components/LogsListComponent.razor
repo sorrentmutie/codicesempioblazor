@@ -1,0 +1,23 @@
+﻿<h3>Lista Logs Applicazione</h3>
+
+@foreach (var log in Logs)
+{
+    <AlertBox Log="log" CssClass="alert alert-success">
+        @*<ChildContent>
+           <b>Esempio</b>
+        </ChildContent>*@
+      
+
+        @*<ChildContent2>
+            <label>Addio</label>
+        </ChildContent2>*@
+    </AlertBox>
+}
+
+
+@code {
+    public string Message { get; set; } = "Ciao";
+
+    [Parameter]
+    public List<LogData> Logs { get; set; } = new List<LogData>();
+}

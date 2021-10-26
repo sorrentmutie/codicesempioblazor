@@ -1,0 +1,40 @@
+﻿
+<table class="table table-striped table-bordered">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Message</th>
+            <th>Severity</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var log in Logs)
+        {
+        <tr>
+            <td>@log.Id</td>
+            <td>@log.Message</td>
+            <td>@log.Level</td>
+            <td>
+                <button class="btn btn-danger" @onclick="() => OnElimina.InvokeAsync(log)">Elimina</button>
+                <button class="btn btn-success" @onclick="() => OnModifica.InvokeAsync(log)">Modifica</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public List<LogData> Logs { get; set; } = new List<LogData>();
+
+    [Parameter]
+    public EventCallback<LogData> OnElimina { get; set; }
+
+    [Parameter]
+    public EventCallback<LogData> OnModifica { get; set; }
+
+}

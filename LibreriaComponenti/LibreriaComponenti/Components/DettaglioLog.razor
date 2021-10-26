@@ -1,0 +1,41 @@
+﻿@typeparam TItem
+
+<EditForm Model="Item" OnValidSubmit="() => OnSalva.InvokeAsync()">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary>
+    </ValidationSummary>
+    @if (Warning.Length > 0)
+    {
+        <div class="alert alert-danger">
+            @Warning
+        </div>
+    }
+
+    @FormFields
+
+
+    <button type="submit">Salva</button>
+    <button type="button" @onclick="() => OnAnnulla.InvokeAsync()">Annulla</button>
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public RenderFragment FormFields { get; set; }
+
+
+    [Parameter]
+    public string Warning { get; set; }
+
+    [Parameter]
+    public TItem Item { get; set; }
+
+    [Parameter]
+    public EventCallback OnSalva { get; set; }
+
+    [Parameter]
+    public EventCallback OnAnnulla { get; set; }
+
+
+    }

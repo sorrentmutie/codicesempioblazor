@@ -1,0 +1,77 @@
+﻿@page "/counter"
+@inject ILogData service
+
+<h1>Log del server</h1>
+
+<!--
+<LogsListComponent Logs="@service.GetLogs()"></LogsListComponent>
+    <h1>Mostra Logs Passati</h1>
+<LogsTable Logs="@service.GetPastLogs()">
+</LogsTable>
+ -->
+
+<button class="btn btn-warning" @onclick="CreaNuovoLog">Crea Nuovo Log</button>
+
+
+@if (SelectedLog == null)
+{
+    <LogsTable Logs="@dati" OnElimina="EliminaLog" OnModifica="ModificaLog">
+    </LogsTable>
+} else
+{
+<DettaglioLog Warning="@Warning" Item="SelectedLog" OnSalva="Salva" OnAnnulla="Annulla">
+    <FormFields>
+        <div class="form-group">
+            <label for="Id">Id</label>
+            <InputNumber id="Id" @bind-Value="SelectedLog.Id" class="form-control"></InputNumber>
+        </div>
+
+        <MyInput Id="Message" Label="Message" @bind-Value="SelectedLog.Message" />
+        <MyInput Id="Severity" Label="Severity" @bind-Value="SelectedLog.Level"/>
+    </FormFields>
+
+</DettaglioLog>
+}
+
+
+@code {
+
+    private List<LogData> dati = new List<LogData>();
+    private LogData SelectedLog;
+    public string Warning = "";
+
+    private void CreaNuovoLog()
+    {
+        SelectedLog = new LogData();
+    }
+
+    private void Salva()
+    {
+        // Warning = "Attenzione!";
+        dati.Add(SelectedLog);
+        SelectedLog = null;
+    }
+
+    private void Annulla()
+    {
+        SelectedLog = null;
+    }
+
+
+    protected override void OnInitialized()
+    {
+        dati = service.GetLogs();
+    }
+
+    public void EliminaLog(LogData logDaEliminare)
+    {
+        dati.Remove(logDaEliminare);
+        // service.removelog(logDaEliminare)
+    }
+
+    public void ModificaLog(LogData logDaModificare)
+    {
+        SelectedLog = logDaModificare;
+    }
+
+}
