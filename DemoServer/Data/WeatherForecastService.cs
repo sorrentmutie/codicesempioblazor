@@ -1,10 +1,12 @@
+using LibreriaComponenti.Models;
+using LibreriaComponenti.Interfaces;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DemoServer.Data
 {
-    public class WeatherForecastService
+    public class WeatherForecastService: IWeatherForecastService
     {
         private static readonly string[] Summaries = new[]
         {

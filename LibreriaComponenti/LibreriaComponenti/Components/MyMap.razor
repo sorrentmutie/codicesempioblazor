@@ -1,0 +1,39 @@
+﻿@inject IJSRuntime jsRuntime
+
+<div id="map" style="height:@Height;width:@Width" @ref="MapTag"></div>
+
+
+@code {
+    [Parameter] public string Height { get; set; } = "500px";
+    [Parameter] public string Width { get; set; } = "100%";
+    [Parameter] public int Zoom { get; set; } = 10;
+    [Parameter] public string Center { get; set; } = "Rome, Italy";
+    [Parameter] public List<string> Markers { get; set; } = new List<string>();
+
+    private bool firstRender = true;
+
+    private ElementReference MapTag;
+
+    private async Task MostraMappa()
+    {
+        await jsRuntime.InvokeVoidAsync("mostraMappa", MapTag, Zoom, Center, Markers);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            this.firstRender = false;
+            await MostraMappa();
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!firstRender)
+        {
+            await MostraMappa();
+        }
+    }
+
+}

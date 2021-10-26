@@ -30,7 +30,7 @@ namespace DemoServer
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<IWeatherForecastService, WeatherForecastService>();
             services.AddSingleton<ILogData, LogDataService>();
         }
 

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibreriaComponenti", "LibreriaComponenti\LibreriaComponenti.csproj", "{DD07CA7A-55C0-4D07-B583-01E60193425D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibreriaComponenti", "LibreriaComponenti\LibreriaComponenti.csproj", "{DD07CA7A-55C0-4D07-B583-01E60193425D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWASM", "..\DemoWASM\DemoWASM.csproj", "{5B2A1D29-FEA7-4131-9FF1-6B2DFD47D51E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWASM", "..\DemoWASM\DemoWASM.csproj", "{5B2A1D29-FEA7-4131-9FF1-6B2DFD47D51E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoServer", "..\DemoServer\DemoServer.csproj", "{E73439A7-B7A2-4392-BACE-37CC5049A6A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoServer", "..\DemoServer\DemoServer.csproj", "{E73439A7-B7A2-4392-BACE-37CC5049A6A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

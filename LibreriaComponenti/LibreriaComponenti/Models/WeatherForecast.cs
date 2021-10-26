@@ -1,6 +1,6 @@
 using System;
 
-namespace DemoServer.Data
+namespace LibreriaComponenti.Models
 {
     public class WeatherForecast
     {

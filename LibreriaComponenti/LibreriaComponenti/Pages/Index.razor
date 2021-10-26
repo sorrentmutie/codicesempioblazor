@@ -1,0 +1,67 @@
+﻿@page "/"
+@inject IJSRuntime jsRuntime
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+<AlertBox></AlertBox>
+<Component1></Component1>
+<button @onclick="ChiamaCodiceJavascript">Invoca Javascript</button>
+<button @onclick="EseguiDaJavascript">Invoca C#</button>
+
+<p>@Valore</p>
+<p>@ValoreDaCSharp</p>
+
+<button @onclick="MostraModale" class="btn btn-success">Mostra Modale</button>
+
+<MyModal Id="mioId" Title="Mio Titolo" OnYes="Conferma">
+    <Body>
+        <p>Esempio di body</p>
+    </Body>
+</MyModal>
+
+<MyMap Markers="Markers" Zoom="14" Height="700px" Center="Via Toledo 1, Napoli"></MyMap>
+
+
+@code {
+
+    public int Valore { get; set; }
+    public string ValoreDaCSharp { get; set; }
+    private List<string> Markers { get; set; }
+    = new List<string> { "Via Toledo 1, Napoli", "Piazza Duomo 1, Milano" };
+
+
+
+    private async Task MostraModale()
+    {
+        await jsRuntime.InvokeVoidAsync("mostraModale", "mioId");
+    }
+
+
+
+    private async Task Conferma()
+    {
+        // logica business
+        await jsRuntime.InvokeVoidAsync("nascondiModale", "mioId");
+    }
+
+    private async Task ChiamaCodiceJavascript()
+    {
+        var interop = new MyJavascriptFunctionsInterop(jsRuntime);
+        Valore = await interop.FaiQualcosa("ciao", "3");
+    }
+
+    private async Task EseguiDaJavascript()
+    {
+        var interop = new MyJavascriptFunctionsInterop(jsRuntime);
+        ValoreDaCSharp = await interop.ChiamaSaluta("Mario");
+    }
+
+
+    [JSInvokable]
+    public static Task<int[]> RestituisciArrayAsync()
+    {
+        return Task.FromResult(new int[] { 1, 2, 3, 4, 5 });
+    }
+
+}

@@ -5,10 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using LibreriaComponenti;
 
 namespace DemoWASM
 {
@@ -21,6 +20,7 @@ namespace DemoWASM
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<ILogData, LogDataService>();
+            builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
             await builder.Build().RunAsync();
         }
