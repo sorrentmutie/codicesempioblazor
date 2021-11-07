@@ -1,0 +1,34 @@
+﻿@page "/reqresnewuser"
+@inject IReqResService service
+
+@Message
+
+<DettaglioLog TItem="NewUser" Item="Utente" OnSalva="Salva" OnAnnulla="Annulla">
+    <FormFields >
+        <MyInput Id="Name" Label="Name" @bind-Value="Utente.Name"></MyInput>
+        <MyInput Id="Job" Label="Job" @bind-Value="Utente.Job"></MyInput>
+    </FormFields>
+</DettaglioLog>
+
+
+@code {
+
+    public NewUser Utente { get; set; } =  new NewUser();
+    public string Message { get; set; } = string.Empty;
+
+
+    protected override void OnInitialized()
+    {
+    }
+
+    private async Task Salva()
+    {
+        Message = await service.PostNewUser(Utente);
+    }
+
+
+    private void Annulla() { }
+
+}
+
+

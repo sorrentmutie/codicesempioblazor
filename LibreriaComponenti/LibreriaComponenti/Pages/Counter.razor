@@ -1,7 +1,9 @@
 ﻿@page "/counter"
 @inject ILogData service
+@inject MySettings settings 
 
-<h1>Log del server</h1>
+
+<h1>Log del server @settings.Setting1 @settings.Setting2</h1>
 
 <!--
 <LogsListComponent Logs="@service.GetLogs()"></LogsListComponent>

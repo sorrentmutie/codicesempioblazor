@@ -1,0 +1,36 @@
+﻿@page "/reqres"
+
+@inject IReqResService service
+
+<h3>Pagina ReqRes</h3>
+<button class="btn btn-danger"  @onclick="Cancel" > Annulla</button>
+<p>@Message</p>
+
+@if (Dati != null && Dati.data != null)
+{
+    @foreach (var item in Dati.data)
+    {
+        <div>@item.FirstName @item.LastName  
+            <img src="@item.avatar" style="width:50px" />
+        </div>
+    }
+}
+
+
+
+@code {
+    public ReqResData Dati { get; set; } = new ReqResData();
+    public string Message { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Dati = await service.GetReqResData();
+    }
+
+    private void Cancel()
+    {
+        service.CancelRequest();
+        Message = "Richiesta Annullata";
+    }
+
+}
