@@ -1,0 +1,26 @@
+﻿@page "/counter"
+@inject IGestioneCatalogo servizioCatalogo 
+@inject Blazored.LocalStorage.ISyncLocalStorageService storage
+
+@if(CatalogoCorrente != null)
+{
+    @CatalogoCorrente.Prodotti.Count
+}
+
+@code {
+
+    public Catalogo CatalogoCorrente { get; set; } = new Catalogo();
+
+    protected override void OnInitialized()
+    {
+        if (storage.ContainKey("catalogoCorrente"))
+        {
+            CatalogoCorrente = storage.GetItem<Catalogo>("catalogoCorrente");
+        }
+
+        //CatalogoCorrente = servizioCatalogo.GetCatalogoCorrente();
+        //storage.SetItem<Catalogo>("catalogoCorrente", CatalogoCorrente);
+
+        base.OnInitialized();
+    }
+}
