@@ -1,0 +1,48 @@
+﻿@page "/counter"
+
+<PageTitle>Counter @a</PageTitle>
+<HeadContent>
+    <meta name="description" content="@b" />
+</HeadContent>
+
+<ErrorBoundary>
+    <ChildContent>
+        
+
+        @foreach(var widget in widgets){
+            <DynamicComponent Type="@widget.Type" Parameters="@widget.Parameters"/>
+        }
+
+    </ChildContent>
+    <ErrorContent>
+        <h1>Hai sbagliato! </h1>
+        <h2></h2>
+    </ErrorContent>
+</ErrorBoundary>
+
+
+
+
+@code {
+    int a { get; set; } = 5;
+    int b { get; set; } = 6; 
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string Filter { get; set; } = "";
+
+    private readonly List<Widget> widgets = new()
+    {
+        new Widget { Type = typeof(FetchData) },
+        new Widget
+        {
+            Type = typeof(MioComponente), 
+            Parameters = new Dictionary<string, object>
+            {
+                ["Nome"] = "Mario",
+                ["Filter"] = "Filtro"
+            }
+        }
+    };
+
+}

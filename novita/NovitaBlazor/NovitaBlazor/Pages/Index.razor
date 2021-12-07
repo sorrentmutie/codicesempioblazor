@@ -1,0 +1,30 @@
+﻿@page "/"
+@inject NavigationManager navigationService
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<Component1></Component1>
+
+<button class="btn btn-warning" @onclick="Naviga">Naviga</button>
+
+<SimpleList Items="@people">
+    <ListItem>
+        <p>
+            Hallo <b>@context.FirstName @context.LastName</b><br />
+            @context.Email
+        </p>
+    </ListItem>
+</SimpleList>
+
+
+@code {
+
+    public IEnumerable<Person> people = A.ListOf<Person>(15);     
+
+    private void Naviga()
+    {
+        navigationService.NavigateTo("/counter?filter=Luigi");
+    }
+}

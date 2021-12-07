@@ -1,0 +1,18 @@
+﻿@inject IJSRuntime jsRuntime
+
+<div class="my-component">
+    This component is defined in the <strong>BlazorAppNovita.Library</strong> library.
+
+    <button class="btn btn-warning" @onclick="Esegui">OK</button>
+    <span>@Somma</span>
+</div>
+
+@code {
+    public int Somma { get; set; } = 0;
+
+    private async Task Esegui()
+    {
+        var interop = new ExampleJsInterop(jsRuntime);
+        Somma = await interop.Somma(5,12);
+    }
+}

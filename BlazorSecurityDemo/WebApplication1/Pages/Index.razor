@@ -10,17 +10,20 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
-
 <AuthorizeView>
     <Authorized>
-
         <ul>
             @foreach(var claim in context.User.Claims)
                 {
                     <li>@claim.Type @claim.Value</li>
                 }
         </ul>
-
     </Authorized>
     <NotAuthorized>Vai via</NotAuthorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <p>Solo gli Admin possono vedere questo pezzo</p>
+    </Authorized>
 </AuthorizeView>

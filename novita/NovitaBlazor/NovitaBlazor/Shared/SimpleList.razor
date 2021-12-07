@@ -1,0 +1,12 @@
+﻿@typeparam TItem
+@attribute [CascadingTypeParameter(nameof(TItem))]
+
+<CascadingValue IsFixed="true" Value="Items">
+    @ChildContent
+</CascadingValue>
+
+
+@code {
+    [Parameter] public IEnumerable<TItem>? Items { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

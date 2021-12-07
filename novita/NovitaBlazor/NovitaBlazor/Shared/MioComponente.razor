@@ -1,0 +1,12 @@
+﻿<h3>Mio Componente @Nome</h3>
+
+<p>Mio filtro: @Filter</p>
+
+@code {
+    [EditorRequired]
+    [Parameter]
+    public string Nome { get; set; } = "Luigi";
+
+    [Parameter]
+    public string Filter { get; set; } = "";
+}

@@ -1,0 +1,15 @@
+﻿@inject IJSRuntime jsRuntime
+
+<div class="my-component">
+    This component is defined in the <strong>NovitaBlazor.Library</strong> library.
+    <button @onclick="Prova">Test</button>
+</div>
+
+@code {
+    private async Task Prova()
+    {
+        var interop = new ExampleJsInterop(jsRuntime);
+        await interop.Prompt("ciao ciao");
+    }
+}
+

@@ -1,0 +1,134 @@
+﻿@page "/"
+
+
+<PageTitle>Index @a</PageTitle>
+<HeadContent>
+    <meta name="mio meta" content="@b" />
+</HeadContent>
+
+
+<ErrorBoundary>
+    <ChildContent>
+
+        <img src="@imageData"/>
+        <InputFile OnChange="LoadImage"></InputFile>
+
+        <InputFile OnChange="LoadFiles"></InputFile>
+        <ul>
+        @foreach(var file in filesCaricati)
+        {
+            <li>Name: @file.Name @file.LastModified @file.Size @file.ContentType</li>
+        }
+        </ul>
+
+        <Component1></Component1>
+
+
+       @* <MiaLista Items="people">
+            <ElementoLista>
+                <div>@context.FirstName @context.LastName @context.Email </div>
+            </ElementoLista>
+        </MiaLista>*@
+
+        <div>
+           @* <Virtualize Items="@people" Context="person">
+                <p>@person.Email @person.LastName</p>
+            </Virtualize>*@
+
+            <div style="overflow-y: scroll; height: 500px">
+            <Virtualize ItemsProvider="@LoadPeople" Context="person">
+                  <p>@person.Email @person.LastName</p>
+
+            </Virtualize>
+            </div>
+
+@*            @foreach(var person in people)
+            {
+                <p>@person.Email @person.LastName</p>
+            }*@
+        </div>
+
+
+
+
+        @*@foreach(var widget in widgets)
+        {
+            <DynamicComponent Type="@widget.Type" Parameters="@widget.Parameters"></DynamicComponent>
+        }*@
+
+    </ChildContent>
+    <ErrorContent>
+        <h1>E' successo qualcosa di brutto</h1>
+    </ErrorContent>
+</ErrorBoundary>
+
+
+@code {
+    int a { get; set; } = 5;
+    int b { get; set; } = 7;
+    public string NomeFile {get;set; } = string.Empty;
+    public string imageData { get; set; } = string.Empty;
+
+    public List<Person> people = A.ListOf<Person>(1000);
+    private List<IBrowserFile> filesCaricati = new();
+
+    public void LoadFiles(InputFileChangeEventArgs e)
+    {
+        foreach(var file in e.GetMultipleFiles(1024*15))
+        {
+            filesCaricati.Add(file);
+        }
+    }
+
+
+    public async ValueTask<ItemsProviderResult<Person>> LoadPeople(ItemsProviderRequest request)
+    {
+        var numeroPersone = request.Count;
+        var startIndex = request.StartIndex;
+
+        // chiamata al server
+        var people =  A.ListOf<Person>(100);
+
+        await Task.Delay(100);
+        return await Task.FromResult(new ItemsProviderResult<Person>(people, numeroPersone + 10));
+        // return new ItemsProviderResult<Person>(people, numeroPersone + 10);
+    }
+
+    public async Task LoadImage(InputFileChangeEventArgs e)
+    {
+        var imageFile = await e.File.RequestImageFileAsync("image/jpeg",
+         maxWidth: 640, maxHeight: 480);
+
+        using Stream fileStream = imageFile.OpenReadStream(1024 * 1024 * 15);
+        using MemoryStream ms = new();
+        await fileStream.CopyToAsync(ms);
+
+        var x = Convert.ToBase64String(ms.ToArray());
+        imageData = $"data:image/jpeg;base64,{x}";
+    }
+
+
+
+    //private void Naviga()
+    //{
+    //    navigation.NavigateTo("/counter?queryParameter=Luigi");
+    //}
+
+    //List<Widget> widgets = new()
+    //    {
+    //        new Widget
+    //        {
+    //            Type = typeof(MioComponente),
+    //            Parameters = new Dictionary<string, object>
+    //            {
+    //                ["Nome"] = "Mario",
+    //                ["Cognome"] = "Rossi"
+    //            }
+    //        },
+    //        new Widget
+    //        {
+    //            Type = typeof(FetchData)
+    //        }
+    //    };
+
+}

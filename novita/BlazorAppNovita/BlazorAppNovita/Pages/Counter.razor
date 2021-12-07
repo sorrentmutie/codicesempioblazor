@@ -1,0 +1,24 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter @QueryParameter</h1>
+<MioComponente Nome="@QueryParameter"></MioComponente>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public string QueryParameter { get; set; } = String.Empty;
+
+}

@@ -1,0 +1,11 @@
+﻿@page "/"
+@inject AppState AppState
+
+<button @onclick="SelectVisibility">Select Visibility</button>
+
+@code{
+    void SelectVisibility()
+    {
+        AppState.SetVisibility(true);
+    }
+}
